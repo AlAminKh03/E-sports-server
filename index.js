@@ -28,8 +28,15 @@ async function run() {
 
 
         app.post('/products', async (req, res) => {
-            const newService = req.body
-            const result = await productCollection.insertOne(newService)
+            const newProduct = req.body
+            const result = await productCollection.insertOne(newProduct)
+            res.send(result)
+        })
+
+        app.delete('/product/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: ObjectID(id) }
+            const result = await productCollection.deleteOne(query)
             res.send(result)
         })
     }
